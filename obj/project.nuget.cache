@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "7dMlG46z52U=",
+  "dgSpecHash": "tBCuaERUM7Y=",
   "success": true,
   "projectFilePath": "C:\\Users\\zerovel\\OneDrive\\Рабочий стол\\Программировние\\WebSocketApp\\WebSocketApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\zerovel\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.0\\microsoft.aspnetcore.openapi.9.0.0.nupkg.sha512",
-    "C:\\Users\\zerovel\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512"
+    "C:\\Users\\zerovel\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512",
+    "C:\\Users\\zerovel\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
   ],
   "logs": []
 }

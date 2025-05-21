@@ -31,3 +31,5 @@ C:\Users\zerovel\OneDrive\Рабочий стол\Программировние
 C:\Users\zerovel\OneDrive\Рабочий стол\Программировние\WebSocketApp\obj\Debug\net9.0\WebSocketApp.pdb
 C:\Users\zerovel\OneDrive\Рабочий стол\Программировние\WebSocketApp\obj\Debug\net9.0\WebSocketApp.genruntimeconfig.cache
 C:\Users\zerovel\OneDrive\Рабочий стол\Программировние\WebSocketApp\obj\Debug\net9.0\ref\WebSocketApp.dll
+C:\Users\zerovel\OneDrive\Рабочий стол\Программировние\WebSocketApp\bin\Debug\net9.0\Newtonsoft.Json.dll
+C:\Users\zerovel\OneDrive\Рабочий стол\Программировние\WebSocketApp\obj\Debug\net9.0\WebSocketApp.sourcelink.json

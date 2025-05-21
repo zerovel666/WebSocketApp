@@ -1,7 +1,6 @@
 using System.Net.WebSockets;
 using System.Text;
-using System.Text.Json;
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 class WebSocketController
 {
@@ -20,6 +19,14 @@ class WebSocketController
             }
 
             var message = Encoding.UTF8.GetString(buffer, 0, result.Count);
+            dynamic? obj = JsonConvert.DeserializeObject<dynamic>(message);
+
+            if (obj == null)
+            {
+                Console.WriteLine("Ошибка: не удалось распарсить JSON");
+                return;
+            }
+            Console.WriteLine(obj);
             var response = Encoding.UTF8.GetBytes(message);
 
             await socket.SendAsync(
