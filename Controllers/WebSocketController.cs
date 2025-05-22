@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 class WebSocketController
 {
-    public async Task HandleAsync(WebSocket socket, CancellationToken cancellationToken)
+    public async Task HandleAsync(WebSocket socket, CancellationToken cancellationToken, int user_id)
     {
         var buffer = new byte[1024 * 4];
 
@@ -20,15 +20,16 @@ class WebSocketController
 
             var message = Encoding.UTF8.GetString(buffer, 0, result.Count);
             dynamic? obj = JsonConvert.DeserializeObject<dynamic>(message);
-
+            
             if (obj == null)
             {
                 Console.WriteLine("Ошибка: не удалось распарсить JSON");
                 return;
             }
             Console.WriteLine(obj);
+            // HandleSendMessage(obj,user_id);
             var response = Encoding.UTF8.GetBytes(message);
-
+            
             await socket.SendAsync(
                 new ArraySegment<byte>(response),
                 result.MessageType,
@@ -36,5 +37,10 @@ class WebSocketController
                 cancellationToken
             );
         }
+    }
+
+    public static void HandleSendMessage(object objectMessage,int user_id)
+    {
+        
     }
 }

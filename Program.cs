@@ -10,9 +10,10 @@ app.Map("/ws", async context =>
 {
     if (context.WebSockets.IsWebSocketRequest)
     {
+        var user_id = int.Parse(context.Request.Headers["user_id"].ToString());
         using var webSocket = await context.WebSockets.AcceptWebSocketAsync();
         var controller = new WebSocketController();
-        await controller.HandleAsync(webSocket, context.RequestAborted);
+        await controller.HandleAsync(webSocket, context.RequestAborted, user_id);
     }
     else
     {
