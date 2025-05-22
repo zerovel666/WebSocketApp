@@ -1,6 +1,5 @@
 using System.Net.WebSockets;
 using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 class WebSocketController
@@ -23,15 +22,28 @@ class WebSocketController
             }
 
             var message = Encoding.UTF8.GetString(buffer, 0, result.Count);
-            dynamic? obj = JsonConvert.DeserializeObject<dynamic>(message);
-            if (obj == null)
+            if (!string.IsNullOrEmpty(message))
             {
-                Console.WriteLine("Ошибка: не удалось распарсить JSON");
-                return;
+                dynamic? obj = null;
+                try
+                {
+                    obj = JsonConvert.DeserializeObject<dynamic>(message);
+                }
+                catch (JsonReaderException)
+                {
+                    continue; 
+                }
+
+                if (obj == null)
+                {
+                    continue;
+                }
+
+                Console.WriteLine(obj);
+                await HandleSendMessage(obj);
             }
-            Console.WriteLine(obj);
+
             var response = Encoding.UTF8.GetBytes(message);
-            await HandleSendMessage(obj);
 
             await socket.SendAsync(
                 new ArraySegment<byte>(response),
