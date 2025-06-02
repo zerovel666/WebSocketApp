@@ -31,7 +31,7 @@ class WebSocketController
                 }
                 catch (JsonReaderException)
                 {
-                    continue; 
+                    continue;
                 }
 
                 if (obj == null)
@@ -57,23 +57,46 @@ class WebSocketController
 
     public static async Task HandleSendMessage(dynamic message)
     {
-        int userId = (int)message.user_id;
+        int? userId = (int?)message.user_id;
 
-        if (conUsersWS.TryGetValue(userId, out var socket) && socket.State == WebSocketState.Open)
+        if (userId is int id)
+        {
+            if (conUsersWS.TryGetValue(id, out var socket) && socket.State == WebSocketState.Open)
+            {
+                string json = JsonConvert.SerializeObject(message);
+                var bytes = Encoding.UTF8.GetBytes(json);
+
+                await socket.SendAsync(
+                    new ArraySegment<byte>(bytes),
+                    WebSocketMessageType.Text,
+                    true,
+                    CancellationToken.None
+                );
+            }
+            else
+            {
+                Console.WriteLine("Пользователь не найден или отключён");
+            }
+        }
+        else
         {
             string json = JsonConvert.SerializeObject(message);
             var bytes = Encoding.UTF8.GetBytes(json);
 
-            await socket.SendAsync(
-                new ArraySegment<byte>(bytes),
-                WebSocketMessageType.Text,
-                true,
-                CancellationToken.None
-            );
-        }
-        else
-        {
-            Console.WriteLine("Пользователь не найден или отключён");
+            foreach (var item in conUsersWS)
+            {
+                var socket = item.Value;
+
+                if (socket.State == WebSocketState.Open)
+                {
+                    await socket.SendAsync(
+                        new ArraySegment<byte>(bytes),
+                        WebSocketMessageType.Text,
+                        true,
+                        CancellationToken.None
+                    );
+                }
+            }
         }
     }
 
